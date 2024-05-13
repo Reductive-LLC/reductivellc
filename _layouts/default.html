@@ -229,15 +229,14 @@
       <section id="three" class="wrapper style1 fade-up">
         <div class="inner">
           <h2>Get in touch</h2>
-          <p>
-            Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam
-            turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus,
-            lacus eget hendrerit bibendum, urna est aliquam sem, sit amet
-            imperdiet est velit quis lorem.
-          </p>
+          <p>Please reach out to inquire about our services.</p>
           <div class="split style1">
             <section>
-              <form method="post" action="#">
+              <form
+                id="my-form"
+                action="https://formspree.io/f/xleqvdwe"
+                method="POST"
+              >
                 <div class="fields">
                   <div class="field half">
                     <label for="name">Name</label>
@@ -254,28 +253,21 @@
                 </div>
                 <ul class="actions">
                   <li><a href="" class="button submit">Send Message</a></li>
+                  <li><p id="my-form-status"></p></li>
                 </ul>
               </form>
             </section>
             <section>
               <ul class="contact">
                 <li>
-                  <h3>Address</h3>
-                  <span
-                    >12345 Somewhere Road #654<br />
-                    Nashville, TN 00000-0000<br />
-                    USA</span
-                  >
-                </li>
-                <li>
                   <h3>Email</h3>
-                  <a href="#">user@untitled.tld</a>
+                  <a href="#">eric@reductivellc.com</a>
                 </li>
                 <li>
                   <h3>Phone</h3>
-                  <span>(000) 000-0000</span>
+                  <span>(312) 206-6450</span>
                 </li>
-                <li>
+                <!-- <li>
                   <h3>Social</h3>
                   <ul class="icons">
                     <li>
@@ -304,7 +296,7 @@
                       >
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </section>
           </div>
@@ -330,5 +322,42 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      var form = document.getElementById("my-form");
+
+      async function handleSubmit(event) {
+        event.preventDefault();
+        var status = document.getElementById("my-form-status");
+        var data = new FormData(event.target);
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+            Accept: "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              status.innerHTML = "Thanks for your submission!";
+              form.reset();
+            } else {
+              response.json().then((data) => {
+                if (Object.hasOwn(data, "errors")) {
+                  status.innerHTML = data["errors"]
+                    .map((error) => error["message"])
+                    .join(", ");
+                } else {
+                  status.innerHTML =
+                    "Oops! There was a problem submitting your form";
+                }
+              });
+            }
+          })
+          .catch((error) => {
+            status.innerHTML = "Oops! There was a problem submitting your form";
+          });
+      }
+      form.addEventListener("submit", handleSubmit);
+    </script>
   </body>
 </html>
