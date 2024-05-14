@@ -303,7 +303,7 @@ $("#sendMessage").on("click", function() {
         })
           .then((response) => {
             if (response.ok) {
-              status.innerHTML = "Thanks for your submission!";
+              status.innerHTML = "Thanks you! We will be sure to respond to your inquiry promptly!";
               form.reset();
             } else {
               response.json().then((data) => {
