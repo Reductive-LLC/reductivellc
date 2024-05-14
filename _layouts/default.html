@@ -196,11 +196,11 @@
                 <div class="fields">
                   <div class="field half">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" />
+                    <input required type="text" name="name" id="name" />
                   </div>
                   <div class="field half">
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" />
+                    <input required type="text" name="email" id="email" />
                   </div>
                   <div class="field">
                     <label for="message">Message</label>
@@ -208,7 +208,7 @@
                   </div>
                 </div>
                 <ul class="actions">
-                  <li><a href="" class="button submit">Send Message</a></li>
+                  <li><input type="submit" value="Send Message"></li>
                   <li><p id="my-form-status"></p></li>
                 </ul>
               </form>
@@ -277,6 +277,16 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <!-- <script>
+$("#sendMessage").on("click", function() {
+    $.ajax({
+        url: "https://formspree.io/f/xleqvdwe", 
+        method: "POST",
+        data: {message: "hello!"},
+        dataType: "json"
+    });
+});      
+    </script> -->
     <script>
       var form = document.getElementById("my-form");
 
